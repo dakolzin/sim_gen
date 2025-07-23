@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<mujoco model="panda scene">
+
+  <!-- общий каталог OBJ/STL для пола; Panda и камера сами зададут свой -->
+  <compiler meshdir="assets" angle="radian"/>
+
+  <!-- ========== визуализация сцены (фон, свет) ========== -->
+  <statistic center="0.3 0 0.4" extent="1"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient"
+             rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+             markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane"
+              texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+  </asset>
+
+  <!-- ========== подключения модулей ========== -->
+
+  <!-- A. Panda + позиционные приводы (менеджерия) -->
+  <include  file="panda_fixed.xml" prefix="p_"/>
+
+  <!-- B. RealSense D435i  (в файле есть свой <compiler meshdir="assets_camera">) -->
+  <include file="camera_d435.xml" prefix="cam_"/>
+
+  <!-- C. Объекты-реквизит (бэк, кролик, собака, кошка) -->
+  <include file="reaxis_fractured_part_0.xml" prefix="obj_"/>
+
+  <!-- ========== пол и базовый свет ========== -->
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" type="plane" material="groundplane" size="0 0 0.05"/>
+
+    <!-- визуализация последнего grasp -->
+    <body name="grasp_viz" pos="0 0 0" quat="1 0 0 0">
+        <!-- маленький шар‑центр (3 мм) -->
+        <geom name="grasp_center" type="sphere"
+            size="0.003"
+            rgba="0.8 0.0 0.8 1"
+            contype="0" conaffinity="0" group="5"/>
+    </body>
+
+  </worldbody>
+
+</mujoco>

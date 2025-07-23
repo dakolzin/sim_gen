@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<mujoco model="d435i_cam">
+
+  <!-- найдёт OBJ-файлы там же, где основная сцена -->
+  <compiler meshdir="assets" angle="radian"/>
+
+  <!-- off-screen буфер 640×480 под RGB-D  -->
+  <visual>
+    <global offwidth="640" offheight="480"/>
+    <quality shadowsize="4096"/>
+  </visual>
+
+  <asset>
+    <!-- ▸ материалы корпуса (имен уникальны) -->
+    <material name="cam_black"   rgba="0.07 0.07 0.07 1"/>
+    <material name="cam_gray"    rgba="0.30 0.30 0.30 1"/>
+    <material name="cam_emitter" rgba="0.29 0.67 0.33 1"/>
+    <material name="cam_lens"    rgba="0.04 0.04 0.04 1"/>
+    <material name="cam_rim"     rgba="0.80 0.81 0.80 1"/>
+    <material name="cam_white"   rgba="1 1 1 1"/>
+    <material name="cam_rgb"     rgba="0.09 0.003 0.009 1"/>
+
+    <!-- ▸ меши камеры  (из menagerie/RealSense) -->
+    <mesh file="d435i_0.obj"/><mesh file="d435i_1.obj"/>
+    <mesh file="d435i_2.obj"/><mesh file="d435i_3.obj"/>
+    <mesh file="d435i_4.obj"/><mesh file="d435i_5.obj"/>
+    <mesh file="d435i_6.obj"/><mesh file="d435i_7.obj"/>
+    <mesh file="d435i_8.obj"/>
+  </asset>
+
+  <worldbody>
+    <!-- вся камера внутри одного body;
+         позицию сцена задаст с `<include … pos="…">` -->
+    <body name="d435" pos="0.1 0.2 0.3" quat="0 0.38268343 0 0.92387953">
+      <geom type="box" size="0.03 0.05 0.02"
+            rgba="0.3 0.3 0.3 1" contype="0" conaffinity="0" group="2"/>
+      <camera name="rs_d435" quat="0.5 0.5 0.5 0.5" fovy="58"/>
+    </body>
+  </worldbody>
+</mujoco>
