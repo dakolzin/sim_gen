@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<mujoco model="d435i_cam">
+
+  <!-- найдёт OBJ-файлы там же, где основная сцена -->
+  <compiler meshdir="assets" angle="radian"/>
+
+  <asset>
+    <mesh name="fractured_part"   file="reaxis_fractured_part_1.stl" scale="0.1 0.1 0.1"/>
+  </asset>
+
+  <worldbody>
+    <body name="fractured_body" pos="0.6 0.3 0.4">
+        <!-- инерция тела -->
+        <inertial pos="0 0 0" mass="0.05"
+                  diaginertia="2e-4 2e-4 2e-4"/>
+
+        <!-- свободный сустав с демпфированием -->
+        <joint name="root" type="free" damping="1e-4"/>
+
+        <!-- визуальный меш (не участвует в коллизиях) -->
+        <geom type="mesh" mesh="fractured_part"
+              rgba="1 .4 .7 1" group="1"
+              contype="0" conaffinity="0" mass="0"/>
+
+        <!-- коллизионная геометрия -->
+        <geom type="mesh" mesh="fractured_part"
+              group="0" condim="3"
+              friction="1 0.5 0.005"
+              margin="0.003"
+              solimp="0.99 0.99 0.01"
+              solref="0.02 1"/>
+    </body>
+  </worldbody>
+</mujoco>

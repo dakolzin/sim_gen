@@ -32,7 +32,7 @@
   <include file="camera_d435.xml" prefix="cam_"/>
 
   <!-- C. Объекты-реквизит (бэк, кролик, собака, кошка) -->
-  <include file="reaxis_fractured_part_0.xml" prefix="obj_"/>
+  <include file="reaxis_fractured_part_2.xml" prefix="obj_"/>
 
   <!-- ========== пол и базовый свет ========== -->
   <worldbody>

@@ -12,5 +12,5 @@ simlib – внутренние утилиты симулятора D435 + Panda
   tcp_eval        – сравнение целевого TCP и фактического из MuJoCo
   logutil         – печать поз в человекочитаемом формате
 """
-from . import config, transforms, mujoco_io, mujoco_render, sbg_client, ik_driver, calibration, tcp_eval, logutil, common, gripper
-__all__ = ["config","transforms","mujoco_io","mujoco_render","sbg_client","ik_driver","calibration","tcp_eval","logutil", "common", "gripper"]
+from . import config, transforms, mujoco_io, mujoco_render, sbg_client, ik_driver, calibration, tcp_eval, logutil, common, gripper, planner, ompl_planner
+__all__ = ["config","transforms","mujoco_io","mujoco_render","sbg_client","ik_driver","calibration","tcp_eval","logutil", "common", "gripper", "planner", "ompl_planner"]

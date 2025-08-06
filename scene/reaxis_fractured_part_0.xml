@@ -5,7 +5,7 @@
   <compiler meshdir="assets" angle="radian"/>
 
   <asset>
-    <mesh name="fractured_part"   file="reaxis_fractured_part_2.stl" scale="0.1 0.1 0.1"/>
+    <mesh name="fractured_part"   file="reaxis_fractured_part_0.stl" scale="0.1 0.1 0.1"/>
   </asset>
 
   <worldbody>
