@@ -29,7 +29,7 @@ def _init_ids(ctx: MjContext):
         if name:
             _GRIP_ACT_ID = mujoco.mj_name2id(ctx.model, mujoco.mjtObj.mjOBJ_ACTUATOR, name)
         else:
-            _GRIP_ACT_ID = ctx.model.nu - 1  # последний актуатор
+            _GRIP_ACT_ID = ctx.model.nu - 1  # последний двигатель
 
     # сустава(ов) пальцев может не быть — это ок
     if _FINGER1_JID is None:
@@ -140,7 +140,7 @@ def _ensure_ctrl_dir(ctx: MjContext):
 
 # ─────────────────────────── низкоуровневое управление ──────────────────────
 def gripper_ctrl(ctx: MjContext, u: float):
-    """Записать сигнал (м) в позиционный актуатор по сухожилию."""
+    """Записать сигнал (м) в позиционный двигатель по сухожилию."""
     _init_ids(ctx); _init_ctrl_range(ctx)
     ctx.data.ctrl[_GRIP_ACT_ID] = float(np.clip(u, _CTRL_MIN, _CTRL_MAX))
 

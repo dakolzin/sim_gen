@@ -36,7 +36,7 @@ def cartesian_line_plan(ctx,
         p = (1.0 - s) * p0 + s * p1
         q_xyzw = tr.safe_uq_from_R(R1).vec
 
-        # «Семя» IK = предыдущее решение, иначе текущие суставы
+        # старт IK = предыдущее решение, иначе текущие суставы
         q0_seed = qs[-1] if qs else ctx.data.qpos[:7].copy()
 
         # Совместимость: solve_ik может не принимать q0 в старых версиях

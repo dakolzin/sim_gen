@@ -6,7 +6,7 @@ simlib/ik_driver.py
 Публичный API:
     have_rtb()                        – доступна ли RTB
     solve_ik(pos, quat_xyzw, q0)      – IK в (м, кватерн. XYZW) с поддержкой семени q0
-    goto_arm(ctx, pos, quat_xyzw, …)  – IK + движение (семя = текущие 7 суставов)
+    goto_arm(ctx, pos, quat_xyzw, …)  – IK + движение (старт = текущие 7 суставов)
     goto_arm_joints(ctx, q_target, …) – прямое движение по суставам
     calibrate_rtb_tool_from_mj(ctx)   – забирает flange→tcp_site из MuJoCo в RTB.tool
 """
@@ -50,7 +50,7 @@ def solve_ik(pos_xyz, quat_xyzw, q0=None):
     Аргументы:
         pos_xyz   – (3,)
         quat_xyzw – (4,) в порядке XYZW
-        q0        – семя IK (np.ndarray (7,)). Если None, берутся нули.
+        q0        – старт IK (np.ndarray (7,)). Если None, берутся нули.
 
     Возврат:
         (qd, ok):
@@ -121,7 +121,7 @@ def goto_arm(ctx: MjContext, pos, quat_xyzw, viewer=None, flags=None):
     if _PANDA is None:
         print('[IK] Robotics Toolbox недоступен'); return False, None
 
-    # ВАЖНО: семя = текущие 7 суставов (чтобы не перепрыгивать на другую ветвь IK)
+    # ВАЖНО: старт = текущие 7 суставов (чтобы не перепрыгивать на другую ветвь IK)
     try:
         q0_seed = ctx.data.qpos[:7].copy()
     except Exception:
